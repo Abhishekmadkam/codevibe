@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVibeLabs — Learn. Code. Build.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --card-bg: #1e293b;
+            --glass: rgba(30, 41, 59, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: var(--darker);
+            overflow: hidden;
+        }
+
+        .bg-animation .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 600px; height: 600px; background: var(--primary); top: -10%; left: -10%; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: var(--secondary); top: 40%; right: -15%; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: var(--accent); bottom: -10%; left: 30%; animation-delay: -10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--light) !important;
+            letter-spacing: -1px;
+        }
+
+        .navbar-brand span { color: var(--primary); }
+
+        .nav-link {
+            color: var(--gray) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--light) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease 0.3s both;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.5);
+            color: white;
+        }
+
+        .btn-outline-glow {
+            background: transparent;
+            color: var(--light);
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            margin-left: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline-glow:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-item p { color: var(--gray); font-size: 0.9rem; }
+
+        /* Code Terminal Effect */
+        .code-terminal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .terminal-header {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .code-line { display: flex; }
+        .line-num { color: var(--gray); margin-right: 16px; width: 24px; text-align: right; }
+        .code-keyword { color: #c678dd; }
+        .code-string { color: #98c379; }
+        .code-func { color: #61afef; }
+        .code-comment { color: #5c6370; }
+        .code-var { color: #e06c75; }
+
+        /* Section Styling */
+        .section-padding { padding: 100px 0; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Course Cards */
+        .course-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .course-card:hover::before { transform: scaleX(1); }
+
+        .course-icon-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+
+        .icon-python { background: rgba(247, 223, 30, 0.1); color: #f7df1e; }
+        .icon-web { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+        .icon-ai { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
+        .icon-fullstack { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .course-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .course-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 24px;
+        }
+
+        .course-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        .course-features li i {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
+        .course-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .price-tag {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-current {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+        }
+
+        .price-current span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .price-original {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .btn-join {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-join:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            color: white;
+        }
+
+        /* QR Section */
+        .qr-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 60px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-section::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 400px; height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.05;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 2px dashed var(--dark);
+            border-radius: 10px;
+            opacity: 0.2;
+        }
+
+        .qr-placeholder i { font-size: 3rem; color: var(--primary); margin-bottom: 8px; }
+        .qr-placeholder span { font-size: 0.8rem; font-weight: 600; }
+
+        /* Modal Styling */
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            color: var(--light);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 24px;
+        }
+
+        .modal-title { font-weight: 700; font-size: 1.3rem; }
+
+        .modal-body { padding: 24px; }
+
+        .modal-footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 20px 24px;
+        }
+
+        .form-control, .form-select {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            color: var(--light);
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: var(--primary);
+            color: var(--light);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-label { color: var(--gray); font-weight: 500; font-size: 0.9rem; }
+
+        .btn-close { filter: invert(1); }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            border-top: 1px solid rgba(99, 102, 241, 0.05);
+            padding: 60px 0 30px;
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-brand span { color: var(--primary); }
+
+        .footer-desc { color: var(--gray); margin: 16px 0; max-width: 300px; }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--gray);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--primary); }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section { padding: 80px 0 60px; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .btn-outline-glow { margin-left: 0; margin-top: 12px; display: block; }
+            .qr-section { padding: 40px 24px; }
+            .section-padding { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Background -->
+<div class="bg-animation">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="bi bi-code-square me-2"></i>CodeVibe<span>Labs</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="#connect">Connect</a></li>
+                <li class="nav-item ms-lg-3">
+                    <button class="btn btn-glow btn-sm" data-bs-toggle="modal" data-bs-target="#enrollModal" onclick="setCourse('General Inquiry')">
+                        <i class="bi bi-lightning-charge-fill me-1"></i> Enroll Now
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-badge">
+                    <i class="bi bi-stars"></i> Industry-Ready Coding Education
+                </div>
+                <h1 class="hero-title">
+                    Master Code.<br>
+                    <span class="gradient-text">Build Future.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Learn real-world programming from industry mentors. From Python basics to Full Stack mastery — become job-ready with hands-on projects.
+                </p>
+                <div>
+                    <a href="#courses" class="btn btn-glow">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Explore Courses
+                    </a>
+                    <button class="btn btn-outline-glow" data-bs-toggle="modal" data-bs-target="#enrollModal">
+                        <i class="bi bi-person-plus me-2"></i>Connect With Us
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>4+</h3>
+                        <p>Core Courses</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>100%</h3>
+                        <p>Hands-On Learning</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Mentor Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="code-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                        <span class="ms-3 text-muted" style="font-size: 0.8rem;">main.py — CodeVibeLabs</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="code-line"><span class="line-num">1</span><span class="code-keyword">class</span> <span class="code-func">Developer</span>:</div>
+                        <div class="code-line"><span class="line-num">2</span>    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(<span class="code-var">self</span>, name):</div>
+                        <div class="code-line"><span class="line-num">3</span>        <span class="code-var">self</span>.name = name</div>
+                        <div class="code-line"><span class="line-num">4</span>        <span class="code-var">self</span>.skills = []</div>
+                        <div class="code-line"><span class="line-num">5</span></div>
+                        <div class="code-line"><span class="line-num">6</span>    <span class="code-keyword">def</span> <span class="code-func">enroll</span>(<span class="code-var">self</span>, course):</div>
+                        <div class="code-line"><span class="line-num">7</span>        <span class="code-var">self</span>.skills.append(course)</div>
+                        <div class="code-line"><span class="line-num">8</span>        <span class="code-keyword">return</span> <span class="code-string">f"{self.name} is now job-ready!"</span></div>
+                        <div class="code-line"><span class="line-num">9</span></div>
+                        <div class="code-line"><span class="line-num">10</span>you = Developer(<span class="code-string">"You"</span>)</div>
+                        <div class="code-line"><span class="line-num">11</span>you.enroll(<span class="code-string">"CodeVibeLabs"</span>)</div>
+                        <div class="code-line"><span class="line-num">12</span><span class="code-comment"># Output: You are now job-ready!</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section class="section-padding" id="courses">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">Our Programs</div>
+            <h2 class="section-title">Choose Your <span class="gradient-text">Learning Path</span></h2>
+            <p class="section-desc">Industry-curated courses designed to take you from beginner to professional. No fluff, only skills that matter.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Python Programming -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="course-card p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="course-icon-wrap icon-python">
+                            <i class="bi bi-filetype-py"></i>
+                        </div>
+                        <span class="badge" style="background: rgba(247,223,30,0.1); color: #f7df1e; padding: 8px 16px; border-radius: 8px;">
+                            <i class="bi bi-clock me-1"></i> 8 Weeks
+                        </span>
+                    </div>
+                    <h3 class="course-title">Python Programming</h3>
+                    <p class="course-desc">Master Python from scratch. Learn data structures, OOP, file handling, and build real-world automation scripts and CLI tools.</p>
+                    <ul class="course-features">
+                        <li><i class="bi bi-check-circle-fill"></i> Python Basics to Advanced</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Data Structures & Algorithms</li>
+                        <li><i class="bi bi-check-circle-fill"></i> OOP & File Handling</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 5 Real-World Projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Certificate of Completion</li>
+                    </ul>
+                    <div class="course-footer">
+                        <div class="price-tag">
+                            <span class="price-original">₹4,999</span>
+                            <span class="price-current">₹2,499 <span>/ one-time</span></span>
+                        </div>
+                        <button class="btn btn-join" data-bs-toggle="modal" data-bs-target="#enrollModal" onclick="setCourse('Python Programming')">
+                            <i class="bi bi-lightning-charge-fill"></i> Join Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="course-card p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="course-icon-wrap icon-web">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <span class="badge" style="background: rgba(99,102,241,0.1); color: var(--primary); padding: 8px 16px; border-radius: 8px;">
+                            <i class="bi bi-clock me-1"></i> 10 Weeks
+                        </span>
+                    </div>
+                    <h3 class="course-title">Web Development</h3>
+                    <p class="course-desc">Build stunning, responsive websites. Master HTML5, CSS3, JavaScript ES6+, and modern frontend frameworks from the ground up.</p>
+                    <ul class="course-features">
+                        <li><i class="bi bi-check-circle-fill"></i> HTML5, CSS3 & JavaScript</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Responsive Design & Flexbox</li>
+                        <li><i class="bi bi-check-circle-fill"></i> DOM Manipulation & Events</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 4 Portfolio Projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Deploy to Live Server</li>
+                    </ul>
+                    <div class="course-footer">
+                        <div class="price-tag">
+                            <span class="price-original">₹5,999</span>
+                            <span class="price-current">₹2,999 <span>/ one-time</span></span>
+                        </div>
+                        <button class="btn btn-join" data-bs-toggle="modal" data-bs-target="#enrollModal" onclick="setCourse('Web Development')">
+                            <i class="bi bi-lightning-charge-fill"></i> Join Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI & ML Basics -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="course-card p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="course-icon-wrap icon-ai">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <span class="badge" style="background: rgba(16,185,129,0.1); color: var(--secondary); padding: 8px 16px; border-radius: 8px;">
+                            <i class="bi bi-clock me-1"></i> 12 Weeks
+                        </span>
+                    </div>
+                    <h3 class="course-title">AI & ML Basics</h3>
+                    <p class="course-desc">Dive into Artificial Intelligence and Machine Learning. Learn Python for data science, build predictive models, and understand neural networks.</p>
+                    <ul class="course-features">
+                        <li><i class="bi bi-check-circle-fill"></i> NumPy, Pandas & Matplotlib</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Supervised & Unsupervised ML</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Neural Networks Intro</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 3 AI Projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Industry Case Studies</li>
+                    </ul>
+                    <div class="course-footer">
+                        <div class="price-tag">
+                            <span class="price-original">₹7,999</span>
+                            <span class="price-current">₹3,999 <span>/ one-time</span></span>
+                        </div>
+                        <button class="btn btn-join" data-bs-toggle="modal" data-bs-target="#enrollModal" onclick="setCourse('AI & ML Basics')">
+                            <i class="bi bi-lightning-charge-fill"></i> Join Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Stack Development -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="course-card p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="course-icon-wrap icon-fullstack">
+                            <i class="bi bi-stack"></i>
+                        </div>
+                        <span class="badge" style="background: rgba(245,158,11,0.1); color: var(--accent); padding: 8px 16px; border-radius: 8px;">
+                            <i class="bi bi-clock me-1"></i> 16 Weeks
+                        </span>
+                    </div>
+                    <h3 class="course-title">Full Stack Development</h3>
+                    <p class="course-desc">The complete package. Learn frontend + backend with Node.js, databases, REST APIs, authentication, and deploy full-scale applications.</p>
+                    <ul class="course-features">
+                        <li><i class="bi bi-check-circle-fill"></i> Frontend + Backend Mastery</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Node.js, Express & MongoDB</li>
+                        <li><i class="bi bi-check-circle-fill"></i> REST APIs & Authentication</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 6 End-to-End Projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Job Placement Assistance</li>
+                    </ul>
+                    <div class="course-footer">
+                        <div class="price-tag">
+                            <span class="price-original">₹11,999</span>
+                            <span class="price-current">₹5,999 <span>/ one-time</span></span>
+                        </div>
+                        <button class="btn btn-join" data-bs-toggle="modal" data-bs-target="#enrollModal" onclick="setCourse('Full Stack Development')">
+                            <i class="bi bi-lightning-charge-fill"></i> Join Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Connect / QR Section -->
+<section class="section-padding" id="connect" style="padding-top: 40px;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="section-header text-lg-start" style="margin-bottom: 30px;">
+                    <div class="section-label" style="margin-left: 0;">Stay Connected</div>
+                    <h2 class="section-title">Join Our <span class="gradient-text">Community</span></h2>
+                    <p class="section-desc" style="margin: 0; max-width: 100%;">Scan the QR code to join our WhatsApp group for daily coding tips, doubt clearing, and exclusive batch updates.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <button class="btn btn-glow" data-bs-toggle="modal" data-bs-target="#enrollModal">
+                        <i class="bi bi-person-plus me-2"></i>Connect With Us
+                    </button>
+                    <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-outline-glow" style="margin-left: 0;">
+                        <i class="bi bi-box-arrow-up-right me-2"></i>Direct Google Form
+                    </a>
+                </div>
+                <div class="mt-4 p-3 rounded-3" style="background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.1);">
+                    <small class="text-muted"><i class="bi bi-info-circle me-2"></i>All enrollments are processed through our secure Google Form. You'll receive a confirmation within 24 hours.</small>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0 animate-on-scroll">
+                <div class="qr-section text-center">
+                    <div class="qr-placeholder">
+                        <i class="bi bi-qr-code" style="font-size: 3rem; color: var(--primary); margin-bottom: 8px;"></i>
+                        <span>WhatsApp Group QR</span>
+                    </div>
+                    <h4 class="mb-2">Scan to Join WhatsApp</h4>
+                    <p class="text-muted mb-0">Get instant access to our coding community</p>
+                    <div class="mt-3">
+                        <span class="badge" style="background: rgba(16,185,129,0.1); color: var(--secondary); padding: 8px 16px;">
+                            <i class="bi bi-people-fill me-1"></i> 500+ Active Members
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="footer-brand"><i class="bi bi-code-square me-2"></i>CodeVibe<span>Labs</span></div>
+                <p class="footer-desc">Empowering the next generation of developers with industry-ready skills and hands-on learning.</p>
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                    <a href="#"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6 mb-4 mb-lg-0">
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <a href="#home">Home</a>
+                    <a href="#courses">Courses</a>
+                    <a href="#connect">Connect</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 mb-4 mb-lg-0">
+                <div class="footer-links">
+                    <h5>Courses</h5>
+                    <a href="#" onclick="setCourse('Python Programming'); return false;">Python Programming</a>
+                    <a href="#" onclick="setCourse('Web Development'); return false;">Web Development</a>
+                    <a href="#" onclick="setCourse('AI & ML Basics'); return false;">AI & ML Basics</a>
+                    <a href="#" onclick="setCourse('Full Stack Development'); return false;">Full Stack</a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-links">
+                    <h5>Contact</h5>
+                    <a href="mailto:hello@codevibelabs.com"><i class="bi bi-envelope me-2"></i>hello@codevibelabs.com</a>
+                    <a href="#"><i class="bi bi-geo-alt me-2"></i>India</a>
+                    <button class="btn btn-glow btn-sm mt-3 w-100" data-bs-toggle="modal" data-bs-target="#enrollModal">
+                        <i class="bi bi-send me-2"></i>Enroll Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="mb-0">&copy; 2026 CodeVibeLabs. All rights reserved. Crafted with <i class="bi bi-heart-fill" style="color: #ef4444;"></i> for learners.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Enrollment Modal -->
+<div class="modal fade" id="enrollModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title"><i class="bi bi-mortarboard-fill me-2" style="color: var(--primary);"></i>Enrollment Form</h5>
+                    <small class="text-muted">Fill in your details and we'll get back to you within 24 hours.</small>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- NOTE: Replace entry.XXXXXX with your actual Google Form entry IDs -->
+                <form id="enrollForm" action="https://docs.google.com/forms/d/e/1FAIpQLSf_z2nEF8A4h8m4NV1KA/formResponse" method="POST" target="_blank">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="entry.1234567890" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" name="entry.1234567891" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="tel" name="entry.1234567892" class="form-control" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City / Country *</label>
+                            <input type="text" name="entry.1234567893" class="form-control" placeholder="Mumbai, India" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Educational Qualification</label>
+                            <input type="text" name="entry.1234567894" class="form-control" placeholder="B.Tech / BCA / 12th Pass">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Interested Course *</label>
+                            <select name="entry.1234567895" class="form-select" id="courseSelect" required>
+                                <option value="">Select a course...</option>
+                                <option value="Python Programming">Python Programming</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="AI & ML Basics">AI & ML Basics</option>
+                                <option value="Full Stack Development">Full Stack Development</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Why do you want to join?</label>
+                            <textarea name="entry.1234567896" class="form-control" rows="3" placeholder="Tell us about your goals..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-glow" data-bs-dismiss="modal" style="margin-left: 0;">Cancel</button>
+                <button type="submit" form="enrollForm" class="btn btn-glow">
+                    <i class="bi bi-send-fill me-2"></i>Submit Enrollment
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Set course in modal
+    function setCourse(courseName) {
+        const select = document.getElementById('courseSelect');
+        if (courseName && select) {
+            select.value = courseName;
+        }
+    }
+
+    // Scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar-custom');
+        if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+        } else {
+            navbar.style.background = 'rgba(15, 23, 42, 0.8)';
+        }
+    });
+
+    // Form submission handler
+    document.getElementById('enrollForm').addEventListener('submit', function(e) {
+        setTimeout(() => {
+            const modalEl = document.getElementById('enrollModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed top-0 end-0 p-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="toast show" role="alert" style="background: var(--card-bg); border: 1px solid rgba(99,102,241,0.2); border-radius: 12px;">
+                    <div class="toast-header" style="background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <i class="bi bi-check-circle-fill me-2" style="color: var(--secondary);"></i>
+                        <strong class="me-auto" style="color: var(--light);">Enrollment Submitted!</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" style="filter: invert(1);"></button>
+                    </div>
+                    <div class="toast-body" style="color: var(--gray);">
+                        Thank you! We'll contact you within 24 hours.
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }, 500);
+    });
+</script>
+
+</body>
+</html>
