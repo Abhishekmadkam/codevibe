@@ -6,800 +6,770 @@
   <title>CodeVibeLabs — Learn. Code. Build.</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
+      --primary: #4f46e5;
+      --primary-light: #818cf8;
+      --primary-dark: #3730a3;
+      --secondary: #0d9488;
       --accent: #f59e0b;
-      --dark: #0f172a;
-      --darker: #020617;
-      --light: #f8fafc;
-      --gray: #94a3b8;
-      --card-bg: #1e293b;
-      --glass: rgba(30, 41, 59, 0.7);
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #0f172a;
+      --text-gray: #475569;
+      --text-light: #94a3b8;
+      --border: #e2e8f0;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 16px 48px rgba(79, 70, 229, 0.10);
+      --radius: 20px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--darker);
-      color: var(--light);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
       overflow-x: hidden;
-      line-height: 1.6;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 0;
     }
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1;
-      background: var(--darker);
-      overflow: hidden;
+    /* ----- APP CONTAINER (mobile first) ----- */
+    .app-container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 0 16px 80px;
+      position: relative;
     }
-    .bg-animation .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.15;
-      animation: float 20s infinite ease-in-out;
+    /* ----- DESKTOP OVERRIDE ----- */
+    @media (min-width: 769px) {
+      body { background: #f1f5f9; }
+      .app-container {
+        max-width: 1200px;
+        padding: 0 40px 40px;
+        background: transparent;
+        min-height: auto;
+      }
+      .top-bar {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+        border-radius: 0 0 24px 24px;
+        background: var(--card-bg);
+        box-shadow: var(--shadow);
+      }
+      .bottom-nav { display: none; }
+      .desktop-nav {
+        display: flex !important;
+        align-items: center;
+        gap: 32px;
+      }
+      .desktop-nav a {
+        color: var(--text-gray);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .desktop-nav a:hover { color: var(--primary); }
+      .desktop-nav a.active { color: var(--primary); }
+      .desktop-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--primary);
+        border-radius: 4px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero-card { margin-bottom: 0; }
+      .brochure-grid { grid-template-columns: 1fr 1fr; }
+      .courses-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .course-card { margin-bottom: 0; }
+      .qr-connect-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .qr-card { margin: 0; }
+      .footer-mini {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0 10px;
+      }
+      .footer-mini p { margin: 0; }
+      .section-header { padding-top: 20px; }
+      .terminal-mini { max-width: 90%; }
     }
-    .orb-1 { width: 600px; height: 600px; background: var(--primary); top: -10%; left: -10%; animation-delay: 0s; }
-    .orb-2 { width: 500px; height: 500px; background: var(--secondary); top: 40%; right: -15%; animation-delay: -5s; }
-    .orb-3 { width: 400px; height: 400px; background: var(--accent); bottom: -10%; left: 30%; animation-delay: -10s; }
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -50px) scale(1.1); }
-      66% { transform: translate(-20px, 20px) scale(0.9); }
+    @media (max-width: 768px) {
+      .desktop-nav { display: none !important; }
+      .bottom-nav { display: flex !important; }
     }
-    /* Navbar */
-    .navbar-custom {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-      padding: 0.8rem 0;
+    /* ----- TOP BAR ----- */
+    .top-bar {
+      background: var(--card-bg);
+      padding: 14px 0 10px;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      transition: all 0.3s ease;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
     }
-    .navbar-brand {
+    .app-brand {
       font-weight: 800;
-      font-size: 1.6rem;
-      color: var(--light) !important;
-      letter-spacing: -0.5px;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
     }
-    .navbar-brand span { color: var(--primary); }
-    .nav-link {
-      color: var(--gray) !important;
+    .app-brand span { color: var(--primary); }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: none;
+      background: var(--bg);
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-icon:active { transform: scale(0.92); }
+    .btn-primary-sm {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-primary-sm:active { transform: scale(0.94); }
+    /* ----- BOTTOM NAV (mobile) ----- */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 env(safe-area-inset-bottom);
+      z-index: 100;
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+    }
+    .bottom-nav .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 0.6rem;
       font-weight: 500;
-      margin: 0 0.4rem;
-      transition: all 0.3s ease;
+      padding: 4px 12px;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
       position: relative;
-      font-size: 0.95rem;
     }
-    .nav-link:hover, .nav-link.active { color: var(--light) !important; }
-    .nav-link::after {
+    .bottom-nav .nav-item i { font-size: 1.4rem; }
+    .bottom-nav .nav-item.active { color: var(--primary); }
+    .bottom-nav .nav-item.active::after {
       content: '';
       position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
+      top: -1px;
+      left: 30%;
+      right: 30%;
+      height: 3px;
       background: var(--primary);
-      transition: width 0.3s ease;
+      border-radius: 0 0 4px 4px;
     }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    /* Hero */
-    .hero-section { padding: 100px 0 60px; position: relative; }
+    /* ----- CARDS ----- */
+    .section-header {
+      padding: 8px 0 12px;
+    }
+    .section-header .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .section-header p {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin: 4px 0 0;
+    }
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px 20px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.2);
+      gap: 6px;
+      background: rgba(79, 70, 229, 0.06);
       color: var(--primary);
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin-bottom: 20px;
-      animation: fadeInUp 0.8s ease;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
     .hero-title {
-      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-size: 1.8rem;
       font-weight: 800;
       line-height: 1.1;
-      margin-bottom: 20px;
-      animation: fadeInUp 0.8s ease 0.1s both;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
     }
-    .hero-title .gradient-text {
+    .hero-title .gradient {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: var(--gray);
-      max-width: 500px;
-      margin-bottom: 30px;
-      animation: fadeInUp 0.8s ease 0.2s both;
-    }
-    .btn-glow {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-weight: 600;
-      border: none;
-      box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.8s ease 0.3s both;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .hero-sub {
+      color: var(--text-gray);
       font-size: 0.95rem;
-    }
-    .btn-glow:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.5);
-      color: white;
-    }
-    .btn-outline-glow {
-      background: transparent;
-      color: var(--light);
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-      margin-left: 12px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-    }
-    .btn-outline-glow:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: var(--primary);
-      color: var(--primary);
+      margin-bottom: 18px;
     }
     .hero-stats {
       display: flex;
-      gap: 30px;
-      margin-top: 40px;
-      animation: fadeInUp 0.8s ease 0.4s both;
+      gap: 28px;
+      margin-top: 12px;
     }
-    .stat-item h3 { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
-    .stat-item p { color: var(--gray); font-size: 0.8rem; margin-bottom: 0; }
-    /* Code Terminal */
-    .code-terminal {
-      background: var(--card-bg);
+    .hero-stats .stat h4 { font-size: 1.2rem; font-weight: 700; margin: 0; }
+    .hero-stats .stat p { font-size: 0.75rem; color: var(--text-light); margin: 0; }
+    /* Terminal */
+    .terminal-mini {
+      background: #0f172a;
       border-radius: 16px;
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-      animation: fadeInUp 0.8s ease 0.5s both;
+      padding: 14px 16px;
+      margin-top: 12px;
     }
-    .terminal-header {
-      background: rgba(15, 23, 42, 0.8);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-red { background: #ef4444; }
-    .dot-yellow { background: #f59e0b; }
-    .dot-green { background: #10b981; }
-    .terminal-body {
-      padding: 18px 16px;
-      font-family: 'Fira Code', 'Courier New', monospace;
-      font-size: 0.75rem;
+    .terminal-mini .dots { display: flex; gap: 6px; margin-bottom: 8px; }
+    .terminal-mini .dots span { width: 8px; height: 8px; border-radius: 50%; }
+    .terminal-mini .dots .r { background: #f87171; }
+    .terminal-mini .dots .y { background: #fbbf24; }
+    .terminal-mini .dots .g { background: #34d399; }
+    .terminal-mini code {
+      color: #cbd5e1;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
       line-height: 1.8;
+      white-space: pre-wrap;
     }
-    .code-line { display: flex; flex-wrap: wrap; }
-    .line-num { color: var(--gray); margin-right: 12px; width: 20px; text-align: right; }
-    .code-keyword { color: #c678dd; }
-    .code-string { color: #98c379; }
-    .code-func { color: #61afef; }
-    .code-comment { color: #5c6370; }
-    .code-var { color: #e06c75; }
-    /* Sections */
-    .section-padding { padding: 70px 0; }
-    .section-header { text-align: center; margin-bottom: 50px; }
-    .section-label {
-      display: inline-block;
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--primary);
-      padding: 4px 16px;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .terminal-mini code .kw { color: #a78bfa; }
+    .terminal-mini code .str { color: #6ee7b7; }
+    .terminal-mini code .fn { color: #93c5fd; }
+    .terminal-mini code .cm { color: #64748b; }
+    /* Brochure */
+    .brochure-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
     }
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .section-desc {
-      color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1rem;
-    }
-    /* Brochure Cards - image background placeholders */
     .brochure-card {
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      min-height: 220px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      min-height: 120px;
       background-size: cover;
       background-position: center;
-      background-color: var(--card-bg);
-      border: 1px solid rgba(99,102,241,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: flex-end;
-      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .brochure-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
+    .brochure-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
     .brochure-card .overlay {
-      background: linear-gradient(0deg, rgba(2,6,23,0.85) 0%, rgba(2,6,23,0.2) 100%);
+      background: linear-gradient(0deg, rgba(255,255,255,0.92) 10%, rgba(255,255,255,0.1) 100%);
       position: absolute;
       inset: 0;
-      border-radius: 24px;
     }
     .brochure-card .content {
       position: relative;
       z-index: 2;
-      color: white;
     }
-    .brochure-card .content h4 {
-      font-weight: 700;
-      font-size: 1.3rem;
+    .brochure-card .content .tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(79,70,229,0.06);
+      padding: 2px 12px;
+      border-radius: 30px;
+      display: inline-block;
       margin-bottom: 4px;
     }
-    .brochure-card .content p {
-      font-size: 0.85rem;
-      opacity: 0.8;
-      margin-bottom: 0;
-    }
-    .brochure-card .badge-brochure {
-      background: rgba(99,102,241,0.3);
-      backdrop-filter: blur(4px);
-      padding: 4px 12px;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    /* Course Cards */
+    .brochure-card .content h5 { font-size: 1rem; font-weight: 700; margin: 0; }
+    .brochure-card .content p { font-size: 0.75rem; color: var(--text-gray); margin: 0; }
+    /* Course */
     .course-card {
       background: var(--card-bg);
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(99, 102, 241, 0.08);
-      transition: all 0.4s ease;
-      position: relative;
-      height: 100%;
-      padding: 1.5rem;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+      transition: all 0.25s;
     }
-    .course-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transition: transform 0.4s ease;
+    .course-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .course-card:active { transform: scale(0.98); }
+    .course-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
     }
-    .course-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(99, 102, 241, 0.2);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .course-card:hover::before { transform: scaleX(1); }
-    .course-icon-wrap {
-      width: 60px;
-      height: 60px;
+    .course-card .icon {
+      width: 48px;
+      height: 48px;
       border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      margin-bottom: 16px;
+      font-size: 1.4rem;
+      background: rgba(79,70,229,0.04);
     }
-    .icon-python { background: rgba(247, 223, 30, 0.1); color: #f7df1e; }
-    .icon-web { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
-    .icon-ai { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
-    .icon-fullstack { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
-    .course-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-    .course-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
-    .course-features {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 20px;
+    .course-card .badge-time {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      background: var(--bg);
+      padding: 4px 12px;
+      border-radius: 40px;
     }
-    .course-features li {
+    .course-card h4 { font-size: 1.1rem; font-weight: 700; margin: 0 0 4px; }
+    .course-card .desc { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 10px; }
+    .course-card .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      margin-bottom: 14px;
+    }
+    .course-card .features span {
+      font-size: 0.75rem;
+      color: var(--text-gray);
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-      color: #cbd5e1;
-      font-size: 0.85rem;
+      gap: 4px;
     }
-    .course-features li i { color: var(--secondary); font-size: 0.7rem; }
-    .course-footer {
+    .course-card .features span i { color: var(--secondary); font-size: 0.6rem; }
+    .course-card .footer {
       display: flex;
-      align-items: center;
       justify-content: flex-end;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
     }
     .btn-join {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 10px 22px;
-      border-radius: 10px;
-      font-weight: 600;
+      background: var(--primary);
+      color: #fff;
       border: none;
-      transition: all 0.3s ease;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-join:hover { background: var(--primary-dark); color: #fff; }
+    .btn-join:active { transform: scale(0.94); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: all 0.2s;
       cursor: pointer;
-      font-size: 0.9rem;
     }
-    .btn-join:hover {
-      transform: scale(1.04);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-      color: white;
-    }
-    /* QR Section */
-    .qr-section {
+    .btn-outline:hover { border-color: var(--primary); background: rgba(79,70,229,0.02); }
+    .btn-outline:active { transform: scale(0.94); }
+    /* QR */
+    .qr-card {
       background: var(--card-bg);
-      border-radius: 24px;
-      padding: 40px 30px;
-      border: 1px solid rgba(99, 102, 241, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    .qr-section::before {
-      content: '';
-      position: absolute;
-      top: -50%; right: -20%;
-      width: 300px; height: 300px;
-      background: var(--primary);
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.05;
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin: 16px 0;
     }
     .qr-placeholder {
-      width: 160px;
-      height: 160px;
-      background: white;
-      border-radius: 16px;
+      width: 120px;
+      height: 120px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      margin: 0 auto 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--dark);
-      margin: 0 auto 16px;
-      position: relative;
-      overflow: hidden;
+      border: 1px dashed var(--border);
     }
-    .qr-placeholder::after {
-      content: '';
-      position: absolute;
-      inset: 6px;
-      border: 2px dashed var(--dark);
-      border-radius: 10px;
-      opacity: 0.15;
-    }
-    .qr-placeholder i { font-size: 2.6rem; color: var(--primary); margin-bottom: 4px; }
-    .qr-placeholder span { font-size: 0.7rem; font-weight: 600; }
+    .qr-placeholder i { font-size: 2.4rem; color: var(--primary); }
+    .qr-placeholder span { font-size: 0.65rem; color: var(--text-light); margin-top: 4px; }
     /* Footer */
-    .footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(99, 102, 241, 0.05);
-      padding: 50px 0 20px;
-    }
-    .footer-brand { font-weight: 800; font-size: 1.4rem; color: var(--light); }
-    .footer-brand span { color: var(--primary); }
-    .footer-desc { color: var(--gray); margin: 12px 0; max-width: 280px; font-size: 0.9rem; }
-    .footer-links h5 { font-size: 0.95rem; font-weight: 600; margin-bottom: 16px; color: var(--light); }
-    .footer-links a {
-      display: block;
-      color: var(--gray);
-      text-decoration: none;
-      margin-bottom: 10px;
-      transition: color 0.3s ease;
-      font-size: 0.9rem;
-    }
-    .footer-links a:hover { color: var(--primary); }
-    .social-links {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .social-links a {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: rgba(99, 102, 241, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gray);
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    .social-links a:hover { background: var(--primary); color: white; transform: translateY(-3px); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      margin-top: 30px;
-      padding-top: 16px;
+    .footer-mini {
       text-align: center;
-      color: var(--gray);
-      font-size: 0.8rem;
+      padding: 20px 0 8px;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
     }
+    .footer-mini a { color: var(--primary); text-decoration: none; }
+    .footer-mini a:hover { text-decoration: underline; }
     /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
+    .animate-in { animation: fadeUp 0.5s ease both; }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.10s; }
+    .delay-3 { animation-delay: 0.15s; }
+    .delay-4 { animation-delay: 0.20s; }
+    /* Responsive fine-tune */
+    @media (max-width: 380px) {
+      .hero-title { font-size: 1.5rem; }
+      .hero-stats { gap: 16px; }
+      .brochure-grid { grid-template-columns: 1fr; }
     }
-    .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
-    /* ----- MOBILE / APP STYLE RESPONSIVE ----- */
-    @media (max-width: 768px) {
-      .hero-section { padding: 70px 0 40px; }
-      .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 20px; justify-content: center; }
-      .stat-item h3 { font-size: 1.4rem; }
-      .btn-outline-glow { margin-left: 0; margin-top: 10px; display: inline-flex; }
-      .hero-title { font-size: 2.2rem; }
-      .hero-subtitle { font-size: 0.95rem; }
-      .section-padding { padding: 50px 0; }
-      .qr-section { padding: 30px 20px; }
-      .brochure-card { min-height: 160px; padding: 18px; }
-      .brochure-card .content h4 { font-size: 1.1rem; }
-      .course-card { padding: 1.2rem; }
-      .course-title { font-size: 1.1rem; }
-      .course-features li { font-size: 0.8rem; }
-      .btn-join { padding: 8px 18px; font-size: 0.8rem; }
-      .footer { padding: 30px 0 15px; }
-      .footer-links h5 { font-size: 0.85rem; }
-      .footer-links a { font-size: 0.8rem; }
-      .navbar-brand { font-size: 1.3rem; }
-      .nav-link { font-size: 0.85rem; margin: 0 0.2rem; }
-      /* app-style cards: full width, more padding */
-      .course-card { border-radius: 16px; }
-      .code-terminal { border-radius: 12px; }
-      .terminal-body { font-size: 0.7rem; padding: 12px; }
-      .qr-placeholder { width: 130px; height: 130px; }
-    }
-    @media (max-width: 480px) {
-      .hero-title { font-size: 1.8rem; }
-      .hero-stats { gap: 12px; }
-      .stat-item h3 { font-size: 1.2rem; }
-      .btn-glow, .btn-outline-glow { padding: 10px 18px; font-size: 0.8rem; }
-      .brochure-card { min-height: 130px; padding: 14px; }
-      .brochure-card .content h4 { font-size: 0.95rem; }
-      .section-title { font-size: 1.5rem; }
-    }
-    /* remove price tag */
-    .price-tag { display: none !important; }
-    .course-footer .btn-join { margin-left: auto; }
-    /* brochure image placeholders */
-    .brochure-1 { background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgODAwIDQwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMxZTI5M2IiLz48Y2lyY2xlIGN4PSI2MDAiIGN5PSIxMDAiIHI9IjE1MCIgZmlsbD0iIzYzNjZmMSIgb3BhY2l0eT0iMC4yIi8+PGNpcmNsZSBjeD0iMjAwIiBjeT0iMzAwIiByPSIxMjAiIGZpbGw9IiMxMGI5ODEiIG9wYWNpdHk9IjAuMTUiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9IlBvcHBpbnMiIGZvbnQtc2l6ZT0iMzAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Db2RlIFZpaWJlPC90ZXh0Pjwvc3ZnPg=='); }
-    .brochure-2 { background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgODAwIDQwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMxZTI5M2IiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjE4MCIgZmlsbD0iI2Y1OWUwYiIgb3BhY2l0eT0iMC4xNSIvPjxjaXJjbGUgY3g9IjcwMCIgY3k9IjMwMCIgcj0iMTUwIiBmaWxsPSIjNjM2NmYxIiBvcGFjaXR5PSIwLjIiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9IlBvcHBpbnMiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MZWFybi4gQnVpbGQuPC90ZXh0Pjwvc3ZnPg=='); }
   </style>
 </head>
 <body>
 
-<div class="bg-animation">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+<div class="app-container">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="app-brand"><i class="bi bi-code-square me-1"></i>CodeVibe<span>Labs</span></div>
+    <div class="top-actions">
+      <button class="btn-icon"><i class="bi bi-search"></i></button>
+      <!-- Desktop nav (hidden on mobile) -->
+      <div class="desktop-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#connect">Connect</a>
+      </div>
+      <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-primary-sm"><i class="bi bi-person-plus me-1"></i>Enroll</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-grid">
+    <div class="hero-card animate-in">
+      <div class="hero-badge"><i class="bi bi-stars"></i> Industry-Ready</div>
+      <h1 class="hero-title">Master Code.<br><span class="gradient">Build Future.</span></h1>
+      <p class="hero-sub">Learn real-world programming from mentors. Python to Full Stack — job-ready with projects.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="#courses" class="btn-join" style="padding: 10px 24px;"><i class="bi bi-rocket-takeoff"></i> Explore</a>
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-outline"><i class="bi bi-person-plus"></i> Connect</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><h4>4+</h4><p>Courses</p></div>
+        <div class="stat"><h4>100%</h4><p>Hands-On</p></div>
+        <div class="stat"><h4>24/7</h4><p>Support</p></div>
+      </div>
+      <div class="terminal-mini">
+        <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <code><span class="kw">class</span> <span class="fn">Developer</span>:<br>  <span class="kw">def</span> <span class="fn">enroll</span>(<span class="kw">self</span>, course):<br>    <span class="kw">return</span> <span class="str">"Job-ready!"</span><br><span class="cm"># You → ready</span></code>
+      </div>
+    </div>
+    <!-- Desktop hero image placeholder (optional) -->
+    <div class="d-none d-md-block">
+      <div style="background: var(--card-bg); border-radius: var(--radius); padding: 30px; border: 1px solid var(--border); box-shadow: var(--shadow); text-align: center; min-height: 300px; display: flex; flex-direction: column; justify-content: center;">
+        <i class="bi bi-code-square" style="font-size: 4rem; color: var(--primary); opacity: 0.3;"></i>
+        <h4 style="margin-top: 16px; font-weight: 600;">Learn. Build. Grow.</h4>
+        <p style="color: var(--text-gray); font-size: 0.9rem;">Join 500+ developers in our community</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BROCHURE -->
+  <div class="brochure-grid">
+    <div class="brochure-card animate-in delay-1" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgODAwIDQwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNmOGZhZmMiLz48Y2lyY2xlIGN4PSI2MDAiIGN5PSI4MCIgcj0iMTUwIiBmaWxsPSIjNGY0NmU1IiBvcGFjaXR5PSIwLjA2Ii8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iMzUwIiByPSIxMjAiIGZpbGw9IiMwZDk0ODgiIG9wYWNpdHk9IjAuMDYiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjI4IiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iNzAwIj5Db2RlIFZpYmU8L3RleHQ+PC9zdmc+');">
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="tag"><i class="bi bi-book me-1"></i>Brochure</span>
+        <h5>Catalog 2026</h5>
+        <p>Full curriculum</p>
+      </div>
+    </div>
+    <div class="brochure-card animate-in delay-2" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgODAwIDQwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNmOGZhZmMiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjE4MCIgZmlsbD0iI2Y1OWUwYiIgb3BhY2l0eT0iMC4wNSIvPjxjaXJjbGUgY3g9IjcwMCIgY3k9IjI4MCIgcj0iMTUwIiBmaWxsPSIjNGY0NmU1IiBvcGFjaXR5PSIwLjA2Ii8+PHRleHQgeD0iNDAwIiB5PSIyMDAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjYwMCI+TGVhcm4uIEJ1aWxkLjwvdGV4dD48L3N2Zz4=');">
+      <div class="overlay"></div>
+      <div class="content">
+        <span class="tag"><i class="bi bi-star me-1"></i>Highlights</span>
+        <h5>Why Us</h5>
+        <p>Mentorship & community</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSES -->
+  <div class="section-header" id="courses">
+    <div class="label">Programs</div>
+    <h2>Choose Your <span style="color: var(--primary);">Path</span></h2>
+    <p>No fluff, only skills that matter.</p>
+  </div>
+
+  <div class="courses-grid">
+    <div class="course-card animate-in delay-1">
+      <div class="top">
+        <div class="icon" style="color: #f7df1e; background: rgba(247,223,30,0.06);"><i class="bi bi-filetype-py"></i></div>
+        <span class="badge-time"><i class="bi bi-clock"></i> 8 Weeks</span>
+      </div>
+      <h4>Python Programming</h4>
+      <p class="desc">Data structures, OOP, file handling, automation & CLI tools.</p>
+      <div class="features">
+        <span><i class="bi bi-check-circle-fill"></i> Basics to Advanced</span>
+        <span><i class="bi bi-check-circle-fill"></i> 5 Projects</span>
+      </div>
+      <div class="footer">
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join"><i class="bi bi-lightning-charge-fill"></i> Join</a>
+      </div>
+    </div>
+
+    <div class="course-card animate-in delay-2">
+      <div class="top">
+        <div class="icon" style="color: var(--primary); background: rgba(79,70,229,0.04);"><i class="bi bi-globe"></i></div>
+        <span class="badge-time"><i class="bi bi-clock"></i> 10 Weeks</span>
+      </div>
+      <h4>Web Development</h4>
+      <p class="desc">HTML5, CSS3, JavaScript ES6+, responsive design & frameworks.</p>
+      <div class="features">
+        <span><i class="bi bi-check-circle-fill"></i> HTML, CSS, JS</span>
+        <span><i class="bi bi-check-circle-fill"></i> 4 Portfolio</span>
+      </div>
+      <div class="footer">
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join"><i class="bi bi-lightning-charge-fill"></i> Join</a>
+      </div>
+    </div>
+
+    <div class="course-card animate-in delay-3">
+      <div class="top">
+        <div class="icon" style="color: var(--secondary); background: rgba(13,148,136,0.04);"><i class="bi bi-cpu"></i></div>
+        <span class="badge-time"><i class="bi bi-clock"></i> 12 Weeks</span>
+      </div>
+      <h4>AI & ML Basics</h4>
+      <p class="desc">NumPy, Pandas, Matplotlib, predictive models & neural networks.</p>
+      <div class="features">
+        <span><i class="bi bi-check-circle-fill"></i> Data Science</span>
+        <span><i class="bi bi-check-circle-fill"></i> 3 AI Projects</span>
+      </div>
+      <div class="footer">
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join"><i class="bi bi-lightning-charge-fill"></i> Join</a>
+      </div>
+    </div>
+
+    <div class="course-card animate-in delay-4">
+      <div class="top">
+        <div class="icon" style="color: var(--accent); background: rgba(245,158,11,0.04);"><i class="bi bi-stack"></i></div>
+        <span class="badge-time"><i class="bi bi-clock"></i> 16 Weeks</span>
+      </div>
+      <h4>Full Stack Development</h4>
+      <p class="desc">Node.js, Express, MongoDB, REST APIs, auth & full-scale apps.</p>
+      <div class="features">
+        <span><i class="bi bi-check-circle-fill"></i> Frontend + Backend</span>
+        <span><i class="bi bi-check-circle-fill"></i> 6 Projects</span>
+      </div>
+      <div class="footer">
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join"><i class="bi bi-lightning-charge-fill"></i> Join</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR CONNECT -->
+  <div class="qr-connect-grid" id="connect">
+    <div class="qr-card animate-in delay-4">
+      <div class="qr-placeholder">
+        <i class="bi bi-qr-code"></i>
+        <span>WhatsApp QR</span>
+      </div>
+      <h5 style="font-weight:700; margin-bottom:2px;">Join Our Community</h5>
+      <p style="font-size:0.85rem; color:var(--text-gray);">Scan to join WhatsApp group</p>
+      <div style="margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join" style="padding:8px 20px; font-size:0.8rem;"><i class="bi bi-person-plus"></i> Connect</a>
+        <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-outline" style="padding:8px 20px; font-size:0.8rem;"><i class="bi bi-box-arrow-up-right"></i> Form</a>
+      </div>
+      <div style="margin-top:10px; font-size:0.7rem; color:var(--text-light);">
+        <i class="bi bi-people-fill me-1"></i> 500+ active members
+      </div>
+    </div>
+    <!-- Desktop side content -->
+    <div class="d-none d-md-block">
+      <div style="padding: 20px;">
+        <h3 style="font-weight:700;">Stay Connected</h3>
+        <p style="color: var(--text-gray);">Get daily coding tips, doubt clearing, and exclusive batch updates.</p>
+        <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-join"><i class="bi bi-person-plus"></i> Join Now</a>
+          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn-outline"><i class="bi bi-box-arrow-up-right"></i> Google Form</a>
+        </div>
+        <div style="margin-top: 12px; padding: 12px 16px; background: var(--bg); border-radius: 12px; font-size: 0.8rem; color: var(--text-gray);">
+          <i class="bi bi-info-circle me-1"></i> All enrollments via Google Form. Confirmation within 24h.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-mini">
+    <p>&copy; 2026 CodeVibeLabs. Made with <i class="bi bi-heart-fill" style="color: #f87171;"></i></p>
+    <p style="margin-top:2px;">
+      <a href="mailto:hello@codevibelabs.com">hello@codevibelabs.com</a> · <a href="#">India</a>
+    </p>
+  </div>
+
+  <!-- BOTTOM NAV (mobile) -->
+  <div class="bottom-nav">
+    <a href="#home" class="nav-item active" onclick="scrollToSection('home')">
+      <i class="bi bi-house-fill"></i>
+      <span>Home</span>
+    </a>
+    <a href="#courses" class="nav-item" onclick="scrollToSection('courses')">
+      <i class="bi bi-grid-fill"></i>
+      <span>Courses</span>
+    </a>
+    <a href="#connect" class="nav-item" onclick="scrollToSection('connect')">
+      <i class="bi bi-qr-code"></i>
+      <span>Connect</span>
+    </a>
+    <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="nav-item" style="color: var(--primary);">
+      <i class="bi bi-person-plus-fill"></i>
+      <span>Enroll</span>
+    </a>
+  </div>
+
 </div>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-custom">
-  <div class="container">
-    <a class="navbar-brand" href="#"><i class="bi bi-code-square me-2"></i>CodeVibe<span>Labs</span></a>
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="#connect">Connect</a></li>
-        <li class="nav-item ms-lg-3">
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-glow btn-sm">
-            <i class="bi bi-lightning-charge-fill me-1"></i> Enroll Now
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Hero -->
-<section class="hero-section" id="home">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <div class="hero-badge"><i class="bi bi-stars"></i> Industry-Ready Coding Education</div>
-        <h1 class="hero-title">Master Code.<br><span class="gradient-text">Build Future.</span></h1>
-        <p class="hero-subtitle">Learn real-world programming from industry mentors. From Python basics to Full Stack mastery — become job-ready with hands-on projects.</p>
-        <div>
-          <a href="#courses" class="btn btn-glow"><i class="bi bi-rocket-takeoff me-2"></i>Explore Courses</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-outline-glow"><i class="bi bi-person-plus me-2"></i>Connect With Us</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item"><h3>4+</h3><p>Core Courses</p></div>
-          <div class="stat-item"><h3>100%</h3><p>Hands-On Learning</p></div>
-          <div class="stat-item"><h3>24/7</h3><p>Mentor Support</p></div>
-        </div>
-      </div>
-      <div class="col-lg-6 mt-4 mt-lg-0">
-        <div class="code-terminal">
-          <div class="terminal-header">
-            <div class="terminal-dot dot-red"></div>
-            <div class="terminal-dot dot-yellow"></div>
-            <div class="terminal-dot dot-green"></div>
-            <span class="ms-3 text-muted" style="font-size: 0.7rem;">main.py — CodeVibeLabs</span>
-          </div>
-          <div class="terminal-body">
-            <div class="code-line"><span class="line-num">1</span><span class="code-keyword">class</span> <span class="code-func">Developer</span>:</div>
-            <div class="code-line"><span class="line-num">2</span>    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(<span class="code-var">self</span>, name):</div>
-            <div class="code-line"><span class="line-num">3</span>        <span class="code-var">self</span>.name = name</div>
-            <div class="code-line"><span class="line-num">4</span>        <span class="code-var">self</span>.skills = []</div>
-            <div class="code-line"><span class="line-num">5</span></div>
-            <div class="code-line"><span class="line-num">6</span>    <span class="code-keyword">def</span> <span class="code-func">enroll</span>(<span class="code-var">self</span>, course):</div>
-            <div class="code-line"><span class="line-num">7</span>        <span class="code-var">self</span>.skills.append(course)</div>
-            <div class="code-line"><span class="line-num">8</span>        <span class="code-keyword">return</span> <span class="code-string">f"{self.name} is now job-ready!"</span></div>
-            <div class="code-line"><span class="line-num">9</span></div>
-            <div class="code-line"><span class="line-num">10</span>you = Developer(<span class="code-string">"You"</span>)</div>
-            <div class="code-line"><span class="line-num">11</span>you.enroll(<span class="code-string">"CodeVibeLabs"</span>)</div>
-            <div class="code-line"><span class="line-num">12</span><span class="code-comment"># Output: You are now job-ready!</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BROCHURE SECTION (two image placeholders) -->
-<section class="section-padding" style="padding-top: 20px; padding-bottom: 20px;">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-6 animate-on-scroll">
-        <div class="brochure-card brochure-1">
-          <div class="overlay"></div>
-          <div class="content">
-            <span class="badge-brochure"><i class="bi bi-book me-1"></i> Brochure</span>
-            <h4>Course Catalog 2026</h4>
-            <p>Explore our full curriculum &amp; roadmap</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 animate-on-scroll">
-        <div class="brochure-card brochure-2">
-          <div class="overlay"></div>
-          <div class="content">
-            <span class="badge-brochure"><i class="bi bi-star me-1"></i> Highlights</span>
-            <h4>Why CodeVibeLabs</h4>
-            <p>Mentorship, projects &amp; community</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Courses -->
-<section class="section-padding" id="courses" style="padding-top: 30px;">
-  <div class="container">
-    <div class="section-header animate-on-scroll">
-      <div class="section-label">Our Programs</div>
-      <h2 class="section-title">Choose Your <span class="gradient-text">Learning Path</span></h2>
-      <p class="section-desc">Industry-curated courses designed to take you from beginner to professional. No fluff, only skills that matter.</p>
-    </div>
-    <div class="row g-4">
-      <!-- Python -->
-      <div class="col-lg-6 animate-on-scroll">
-        <div class="course-card">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="course-icon-wrap icon-python"><i class="bi bi-filetype-py"></i></div>
-            <span class="badge" style="background: rgba(247,223,30,0.1); color: #f7df1e; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;"><i class="bi bi-clock me-1"></i> 8 Weeks</span>
-          </div>
-          <h3 class="course-title">Python Programming</h3>
-          <p class="course-desc">Master Python from scratch. Data structures, OOP, file handling, and real-world automation.</p>
-          <ul class="course-features">
-            <li><i class="bi bi-check-circle-fill"></i> Python Basics to Advanced</li>
-            <li><i class="bi bi-check-circle-fill"></i> Data Structures & Algorithms</li>
-            <li><i class="bi bi-check-circle-fill"></i> 5 Real-World Projects</li>
-          </ul>
-          <div class="course-footer">
-            <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-join"><i class="bi bi-lightning-charge-fill"></i> Join Now</a>
-          </div>
-        </div>
-      </div>
-      <!-- Web Dev -->
-      <div class="col-lg-6 animate-on-scroll">
-        <div class="course-card">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="course-icon-wrap icon-web"><i class="bi bi-globe"></i></div>
-            <span class="badge" style="background: rgba(99,102,241,0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;"><i class="bi bi-clock me-1"></i> 10 Weeks</span>
-          </div>
-          <h3 class="course-title">Web Development</h3>
-          <p class="course-desc">Build responsive websites with HTML5, CSS3, JavaScript ES6+ and modern frontend frameworks.</p>
-          <ul class="course-features">
-            <li><i class="bi bi-check-circle-fill"></i> HTML5, CSS3 & JavaScript</li>
-            <li><i class="bi bi-check-circle-fill"></i> Responsive Design & Flexbox</li>
-            <li><i class="bi bi-check-circle-fill"></i> 4 Portfolio Projects</li>
-          </ul>
-          <div class="course-footer">
-            <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-join"><i class="bi bi-lightning-charge-fill"></i> Join Now</a>
-          </div>
-        </div>
-      </div>
-      <!-- AI/ML -->
-      <div class="col-lg-6 animate-on-scroll">
-        <div class="course-card">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="course-icon-wrap icon-ai"><i class="bi bi-cpu"></i></div>
-            <span class="badge" style="background: rgba(16,185,129,0.1); color: var(--secondary); padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;"><i class="bi bi-clock me-1"></i> 12 Weeks</span>
-          </div>
-          <h3 class="course-title">AI & ML Basics</h3>
-          <p class="course-desc">Dive into AI and ML. Python for data science, predictive models, and neural networks intro.</p>
-          <ul class="course-features">
-            <li><i class="bi bi-check-circle-fill"></i> NumPy, Pandas & Matplotlib</li>
-            <li><i class="bi bi-check-circle-fill"></i> Supervised & Unsupervised ML</li>
-            <li><i class="bi bi-check-circle-fill"></i> 3 AI Projects</li>
-          </ul>
-          <div class="course-footer">
-            <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-join"><i class="bi bi-lightning-charge-fill"></i> Join Now</a>
-          </div>
-        </div>
-      </div>
-      <!-- Full Stack -->
-      <div class="col-lg-6 animate-on-scroll">
-        <div class="course-card">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="course-icon-wrap icon-fullstack"><i class="bi bi-stack"></i></div>
-            <span class="badge" style="background: rgba(245,158,11,0.1); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;"><i class="bi bi-clock me-1"></i> 16 Weeks</span>
-          </div>
-          <h3 class="course-title">Full Stack Development</h3>
-          <p class="course-desc">Complete package: frontend + backend with Node.js, Express, MongoDB, REST APIs, auth.</p>
-          <ul class="course-features">
-            <li><i class="bi bi-check-circle-fill"></i> Frontend + Backend Mastery</li>
-            <li><i class="bi bi-check-circle-fill"></i> Node.js, Express & MongoDB</li>
-            <li><i class="bi bi-check-circle-fill"></i> 6 End-to-End Projects</li>
-          </ul>
-          <div class="course-footer">
-            <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-join"><i class="bi bi-lightning-charge-fill"></i> Join Now</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Connect / QR -->
-<section class="section-padding" id="connect" style="padding-top: 20px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 animate-on-scroll">
-        <div class="section-header text-lg-start" style="margin-bottom: 20px;">
-          <div class="section-label" style="margin-left: 0;">Stay Connected</div>
-          <h2 class="section-title">Join Our <span class="gradient-text">Community</span></h2>
-          <p class="section-desc" style="margin: 0; max-width: 100%;">Scan the QR code to join our WhatsApp group for daily coding tips, doubt clearing, and exclusive batch updates.</p>
-        </div>
-        <div class="d-flex flex-wrap gap-3 mt-3">
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-glow"><i class="bi bi-person-plus me-2"></i>Connect With Us</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-outline-glow" style="margin-left: 0;"><i class="bi bi-box-arrow-up-right me-2"></i>Direct Google Form</a>
-        </div>
-        <div class="mt-3 p-3 rounded-3" style="background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.1);">
-          <small class="text-muted"><i class="bi bi-info-circle me-2"></i>All enrollments are processed through our secure Google Form. You'll receive a confirmation within 24 hours.</small>
-        </div>
-      </div>
-      <div class="col-lg-6 mt-4 mt-lg-0 animate-on-scroll">
-        <div class="qr-section text-center">
-          <div class="qr-placeholder"><i class="bi bi-qr-code"></i><span>WhatsApp Group QR</span></div>
-          <h4 class="mb-1 fs-5">Scan to Join WhatsApp</h4>
-          <p class="text-muted mb-0 small">Get instant access to our coding community</p>
-          <div class="mt-2"><span class="badge" style="background: rgba(16,185,129,0.1); color: var(--secondary); padding: 6px 14px;"><i class="bi bi-people-fill me-1"></i> 500+ Active Members</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 mb-3 mb-lg-0">
-        <div class="footer-brand"><i class="bi bi-code-square me-2"></i>CodeVibe<span>Labs</span></div>
-        <p class="footer-desc">Empowering the next generation of developers with industry-ready skills and hands-on learning.</p>
-        <div class="social-links">
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-          <a href="#"><i class="bi bi-youtube"></i></a>
-          <a href="#"><i class="bi bi-github"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-2 col-6 mb-3 mb-lg-0">
-        <div class="footer-links">
-          <h5>Quick Links</h5>
-          <a href="#home">Home</a>
-          <a href="#courses">Courses</a>
-          <a href="#connect">Connect</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6 mb-3 mb-lg-0">
-        <div class="footer-links">
-          <h5>Courses</h5>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank">Python Programming</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank">Web Development</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank">AI & ML Basics</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank">Full Stack</a>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="footer-links">
-          <h5>Contact</h5>
-          <a href="mailto:hello@codevibelabs.com"><i class="bi bi-envelope me-2"></i>hello@codevibelabs.com</a>
-          <a href="#"><i class="bi bi-geo-alt me-2"></i>India</a>
-          <a href="https://forms.gle/z2nEF8A4h8m4NV1KA" target="_blank" class="btn btn-glow btn-sm mt-2 w-100"><i class="bi bi-send me-2"></i>Enroll Now</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="mb-0">&copy; 2026 CodeVibeLabs. All rights reserved. Crafted with <i class="bi bi-heart-fill" style="color: #ef4444;"></i> for learners.</p>
-    </div>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Scroll animations
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -30px 0px' };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, observerOptions);
-  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  // Smooth scroll to section
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    // update active nav (mobile)
+    document.querySelectorAll('.bottom-nav .nav-item').forEach(item => item.classList.remove('active'));
+    const target = document.querySelector(`.bottom-nav .nav-item[href="#${id}"]`);
+    if (target) target.classList.add('active');
+    // update desktop nav
+    document.querySelectorAll('.desktop-nav a').forEach(a => a.classList.remove('active'));
+    const desktopTarget = document.querySelector(`.desktop-nav a[href="#${id}"]`);
+    if (desktopTarget) desktopTarget.classList.add('active');
+  }
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Highlight nav on scroll
+  const sections = ['home', 'courses', 'connect'];
+  const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+  const desktopItems = document.querySelectorAll('.desktop-nav a');
+  window.addEventListener('scroll', () => {
+    let current = 'home';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 100) current = id;
+      }
+    });
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === `#${current}`) item.classList.add('active');
+    });
+    desktopItems.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === `#${current}`) a.classList.add('active');
     });
   });
 
-  // Navbar background
-  window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar-custom');
-    navbar.style.background = window.scrollY > 50 ? 'rgba(15, 23, 42, 0.95)' : 'rgba(15, 23, 42, 0.8)';
+  // smooth click for nav links
+  document.querySelectorAll('.bottom-nav .nav-item[href^="#"], .desktop-nav a[href^="#"]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = item.getAttribute('href').replace('#', '');
+      scrollToSection(id);
+    });
+  });
+
+  // Also for any other # links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = this.getAttribute('href');
+      if (target && target !== '#') {
+        e.preventDefault();
+        const id = target.replace('#', '');
+        scrollToSection(id);
+      }
+    });
   });
 </script>
+
 </body>
 </html>
